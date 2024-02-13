@@ -9,12 +9,15 @@ import java.io.IOException;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
+import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
+
 import Utility.HtmlRenderer;
 import Utility.ImageLoader;
 import Utility.Notifications;
 
 import Components.CMenu;
 import Components.CMenuItem;
+import Components.CTabbedPane;
 import Gui.JEditor;
 import MenuEvents.SourceMenuEvent;
 
@@ -118,7 +121,44 @@ public class SourceMenu extends CMenu{
 			
 			@Override
 			public void actionPerformed(ActionEvent s) {
-				System.out.println("test");
+//				System.out.println("test");
+//				RSyntaxTextArea area = CTabbedPane.getInstance().getPanel().getTextArea();
+//				System.out.println(area.getText());
+//				String oldText = area.getText();
+//				area.setText("       " + oldText);
+				
+				RSyntaxTextArea textArea = CTabbedPane.getInstance().getPanel().getTextArea();
+				System.out.println(textArea.getCaretLineNumber());
+				// Get the selected text or the text on the current line
+				// Get the selected text or the text on the current line
+			    int start = textArea.getSelectionStart();
+			    int end = textArea.getSelectionEnd();
+
+			    int caretPositionBefore = textArea.getCaretPosition();
+
+			    if (start == end) {
+			        int caretPosition = textArea.getCaretPosition();
+			        int lineStart = textArea.getLineStartOffsetOfCurrentLine();
+			        int lineEnd = textArea.getLineEndOffsetOfCurrentLine();
+			        start = lineStart;
+			        end = lineEnd;
+			        textArea.setSelectionStart(lineStart);
+			        textArea.setSelectionEnd(lineEnd);
+			    }
+
+			    // Modify the text (move it to the right)
+			    String selectedText = textArea.getSelectedText();
+			    if (selectedText != null) {
+			        String newText = "    " + selectedText;
+			        textArea.replaceRange(newText, start, end);
+			    }
+
+			    // Set the caret position back to its original value
+			    textArea.setCaretPosition(caretPositionBefore);
+				
+				
+				
+				
 			}
 		});
 	}
