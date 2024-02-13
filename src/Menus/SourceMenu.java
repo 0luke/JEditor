@@ -21,7 +21,7 @@ import MenuEvents.SourceMenuEvent;
 public class SourceMenu extends CMenu{
 	
 	private static final long serialVersionUID = 1L;
-	public static CMenuItem command,terminal,browser,renderHtml;
+	public static CMenuItem command,terminal,browser,renderHtml,shiftRight;
 
 	public SourceMenu(String text, char Mnmonic) {
 		super(text, Mnmonic);
@@ -44,6 +44,8 @@ public class SourceMenu extends CMenu{
 		terminal = new CMenuItem("Open terminal", "open a new terminal", 'O', KeyStroke.getKeyStroke(KeyEvent.VK_T, InputEvent.SHIFT_DOWN_MASK + InputEvent.CTRL_DOWN_MASK));
 		browser = new CMenuItem("Open browser", "open the system browser", 'B', KeyStroke.getKeyStroke(KeyEvent.VK_B, InputEvent.CTRL_DOWN_MASK + InputEvent.SHIFT_DOWN_MASK));
 		renderHtml = new CMenuItem("Render Html", "render the text as html", 'R', KeyStroke.getKeyStroke(KeyEvent.VK_H, InputEvent.CTRL_DOWN_MASK + InputEvent.SHIFT_DOWN_MASK));
+		shiftRight = new CMenuItem("Shift to the right", "shift the text to the right", 'S', KeyStroke.getKeyStroke(KeyEvent.VK_K, InputEvent.CTRL_DOWN_MASK));
+;
 	}
 	
 	public void addActions(){
@@ -111,6 +113,14 @@ public class SourceMenu extends CMenu{
 					r.show();
 			}
 		});
+		
+		shiftRight.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent s) {
+				System.out.println("test");
+			}
+		});
 	}
 	
 	public void addToMenu(){
@@ -118,6 +128,7 @@ public class SourceMenu extends CMenu{
 		add(terminal);
 		add(browser);
 		add(renderHtml);
+		add(shiftRight);
 	}
 	
 	public void addIcons(){
